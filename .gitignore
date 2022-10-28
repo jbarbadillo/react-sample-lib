@@ -128,5 +128,5 @@ yarn-error.log*
 
 /lib
 /docs
-/config.componentData.js
+/config/componentData.js
 launch.json
