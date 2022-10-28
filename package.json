@@ -81,7 +81,10 @@
     ]
   },
   "devDependencies": {
-    "jest-watch-typeahead": "^0.6.5"
+    "chokidar": "^1.6.1",
+    "jest-watch-typeahead": "^0.6.5",
+    "npm-run-all": "^4.0.2",
+    "react-docgen": "^2.14.0"
   },
   "jest": {
     "roots": [
