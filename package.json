@@ -2,14 +2,17 @@
   "name": "react-sample-lib",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://github.com/jbarbadillo/react-sample-lib/",
   "scripts": {
     "prestart": "npm run gen:docs",
     "start": "npm-run-all --parallel start:docs gen:docs--watch",
     "start:docs": "node scripts/start.js",
     "gen:docs": "node scripts/generateComponentData.js",
     "gen:docs--watch": "npm run gen:docs -- --watch",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "build:docs": "node scripts/build.js",
+    "test": "node scripts/test.js",
+    "predeploy:docs": "npm run build:docs",
+    "deploy:docs": "gh-pages -d build"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
@@ -88,6 +91,7 @@
   "devDependencies": {
     "chokidar": "^1.6.1",
     "enzyme": "^2.8.2",
+    "gh-pages": "^0.12.0",
     "jest-watch-typeahead": "^0.6.5",
     "npm-run-all": "^4.0.2",
     "react-addons-test-utils": "^15.5.1",
