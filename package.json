@@ -1,8 +1,16 @@
 {
   "name": "react-sample-lib",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "http://jbarbadillo.github.io/react-sample-lib/",
+  "main": ".lib/index.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "author": {
+    "name": "Javier"
+  },
+  "files": ["lib"],
   "scripts": {
     "prestart": "npm run gen:docs",
     "start": "npm-run-all --parallel start:docs gen:docs--watch",
@@ -12,7 +20,13 @@
     "build:docs": "node scripts/build.js",
     "test": "node scripts/test.js",
     "predeploy:docs": "npm run build:docs",
-    "deploy:docs": "gh-pages -d build"
+    "deploy:docs": "gh-pages -d build",
+    "build:lib": "npm-run-all --parallel build:commonjs build:css build:copy-files",
+    "prebuild:lib": "rimraf lib",
+    "build:copy-files": "node scripts/copyBuildFiles.js",
+    "build:css": "cpx \"./src/components/**/*.css\" ./lib",
+    "build:commonjs": "cross-env NODE_ENV=production babel ./src/components --out-dir ./lib --ignore spec.js",
+    "prepublish": "npm run build:lib"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
@@ -24,6 +38,7 @@
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react-app": "^10.0.1",
     "bfj": "^7.0.2",
     "browserslist": "^4.18.1",
@@ -89,14 +104,18 @@
     ]
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "chokidar": "^1.6.1",
+    "cpx": "^1.5.0",
+    "cross-env": "^4.0.0",
     "enzyme": "^2.8.2",
     "gh-pages": "^0.12.0",
     "jest-watch-typeahead": "^0.6.5",
     "npm-run-all": "^4.0.2",
     "react-addons-test-utils": "^15.5.1",
     "react-docgen": "^2.14.0",
-    "react-test-renderer": "^15.5.4"
+    "react-test-renderer": "^15.5.4",
+    "rimraf": "^2.6.1"
   },
   "jest": {
     "roots": [
@@ -151,6 +170,12 @@
   },
   "babel": {
     "presets": [
+      [
+        "env",
+        {
+          "modules": "commonjs"
+        }
+      ],
       "react-app"
     ]
   }
